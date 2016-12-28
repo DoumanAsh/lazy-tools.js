@@ -1,0 +1,40 @@
+{
+  "name": "lazy-tools",
+  "description": "Lazy tools",
+  "author": "Douman",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "brunch watch --server",
+    "prebuild": "npm install",
+    "build": "brunch build --production",
+    "lint": "eslint . --ext .js --ext .tag --ignore-pattern public || true",
+    "publish_gh_pages": "bash update_page.sh"
+  },
+  "dependencies": {
+    "riot": "^3.0.5"
+  },
+  "devDependencies": {
+    "auto-reload-brunch": "*",
+    "autoprefixer-stylus": "*",
+    "babel-brunch": "*",
+    "babel-plugin-external-helpers": "*",
+    "babel-preset-es2015": "*",
+    "brunch": "*",
+    "clean-css-brunch": "*",
+    "css-brunch": "*",
+    "eslint-brunch": "*",
+    "jade-brunch": "*",
+    "javascript-brunch": "*",
+    "rollup-brunch": "*",
+    "rollup-plugin-babel": "*",
+    "rollup-plugin-riot": "*",
+    "stylus-brunch": "*",
+    "uglify-js-brunch": "*"
+  }
+}

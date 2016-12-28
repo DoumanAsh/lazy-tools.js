@@ -1,0 +1,14 @@
+include _head.jade
+
+script(src="app.js")
+
+body
+    Index
+
+    script.
+        require('init.js')
+
+    //Fall-back when no JS is enabled :(
+    noscript
+        div.
+            Javascript is disabled. App cannot work :(
