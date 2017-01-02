@@ -9,5 +9,4 @@ function riot_tag(tag_data) {
 riot_tag(Index);
 
 riot.mount('Index', {
-    title: 'Lazy-Tools'
 });

@@ -17,7 +17,8 @@
     "publish_gh_pages": "bash update_page.sh"
   },
   "dependencies": {
-    "riot": "^3.0.5"
+    "riot": "^3.0.5",
+    "riot-route": "^3.0.2"
   },
   "devDependencies": {
     "auto-reload-brunch": "*",
