@@ -2,13 +2,7 @@
 
 const HTML = `
 <header>
-    <div>
-        <h1>Lazy Tools</h1>
-        <p>
-            Here you can find bunch of tools.<br>
-            They are free to use so enjoy.
-        </p>
-    </div>
+    <h1>Lazy Tools</h1>
 </header>
 `;
 

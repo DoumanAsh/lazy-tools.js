@@ -1,8 +1,9 @@
 'use strict';
 
 const HTML = `
-<img class="404" src="/img/404.png"></img>
-<p> Unknown tool </p>
+<header>
+    <h1>Unknown Tool</h1>
+</header>
 `;
 
 function NotFound() {

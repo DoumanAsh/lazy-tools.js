@@ -7,8 +7,6 @@ import Home from './Home.js';
 import NotFound from './404.js';
 
 const HTML = `
-<div class="wrap">
-
 <nav>
     <a href="#" class="{this.state.router.is_selected('')}" >Home</a>
     <a href="#md" class="{this.state.router.is_selected('md')}" >Markdown Parser</a>
@@ -19,8 +17,6 @@ const HTML = `
 <div class="aru">
     <img src="{this.state.aru.img}"/>
     <p>{this.state.aru.speech}</p>
-</div>
-
 </div>
 `;
 
