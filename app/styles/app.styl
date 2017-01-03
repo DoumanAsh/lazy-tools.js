@@ -23,5 +23,31 @@ app
             font-weight: bold
 
     & > main
+        padding: .5rem
         & > section
             display: inline-block
+
+
+    & > main.flex_list
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-around
+        align-items: center
+
+        & > a
+            margin: .5rem
+
+
+a.button_link
+    width: 200px
+    text-decoration: none
+    word-wrap: break-word
+    background: #333
+    color: white
+    padding: .5rem
+    border-radius: 20px
+    transition: all .2s ease-in-out
+
+    &:hover
+        transform: scale(1.1)
+        box-shadow: 3px 3px 3px 4px rgba(0, 0, 0, 0.4)

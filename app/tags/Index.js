@@ -6,20 +6,6 @@ import Markdown from './Markdown.js';
 import Home from './Home.js';
 import NotFound from './404.js';
 
-const HTML = `
-<nav>
-    <a href="#" class="{this.state.router.is_selected('')}" >Home</a>
-    <a href="#md" class="{this.state.router.is_selected('md')}" >Markdown Parser</a>
-</nav>
-
-<app ref="child"></app>
-
-<div class="aru">
-    <img src="{this.state.aru.img}"/>
-    <p>{this.state.aru.speech}</p>
-</div>
-`;
-
 const Aru = {
     expression: {
         "norm": "/img/aru-norm-1.png",
@@ -58,7 +44,34 @@ const Apps = {
     }
 };
 
+const AppLinks = [
+    {
+        ref: "#md",
+        name: "Markdown Parser",
+        desc: "Allows you to generate HTML files from Markdown"
+    },
+];
+
+const HTML = `
+<nav>
+    <a href="#" class="{this.state.router.is_selected('')}" >Home</a>
+    <a href="{ref}" class="{parent.state.router.is_selected(ref.slice(1))}" each={this.store.app_links}>{name}</a>
+</nav>
+
+<app ref="child"></app>
+
+<div class="aru">
+    <img src="{this.state.aru.img}"/>
+    <p>{this.state.aru.speech}</p>
+</div>
+`;
+
+
 function Index() {
+    //Supposed to be immutable.
+    this.store = {
+        app_links: AppLinks,
+    };
     // Holds current state of tag.
     this.state = {
         router: {
