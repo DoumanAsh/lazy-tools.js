@@ -1,10 +1,14 @@
-div.nav
+nav
     color: #666
     background: #333
     text-align: center
     transition: width .2s
     box-sizing: border-box
     width: 100px
+    box-shadow: 2px 2px 2px 2px #aaa
+
+    &:hover
+        width: 150px
 
     & > a
         width: 100%
@@ -20,11 +24,15 @@ div.nav
 
 div.aru
     flex: 1 1 10%
+    box-shadow: 2px 2px 2px 2px #aaa
+    background: #333
+    & > img
+        background: #333
     & > p
         font-size: 20px
         color: white
-        width: 80%
-        background: #333
+        background: #5F8DA2
         padding: .5rem
+        margin: .5rem
         text-align: center
         border-radius: 20px

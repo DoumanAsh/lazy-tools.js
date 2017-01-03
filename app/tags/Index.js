@@ -9,10 +9,10 @@ import NotFound from './404.js';
 const HTML = `
 <div class="wrap">
 
-<div class="nav">
+<nav>
     <a href="#" class="{this.state.router.is_selected('')}" >Home</a>
     <a href="#md" class="{this.state.router.is_selected('md')}" >Markdown Parser</a>
-</div>
+</nav>
 
 <app ref="child"></app>
 
@@ -27,11 +27,13 @@ const HTML = `
 const Aru = {
     expression: {
         "norm": "/img/aru-norm-1.png",
-        "sad": "/img/aru-sad-1.png"
+        "sad": "/img/aru-sad-1.png",
+        "smile": "/img/aru-smile-1.png",
+        "smile_c": "/img/aru-smile_c-1.png"
     },
     speech: {
         "welcome": "Welcome, Master. My name is Aru and I'll be your guide here.",
-        "welcome_md": "You can use this tool to parse Markdown files. Drag and Drop your files over there.",
+        "welcome_md": "You can use this tool to generate HTML from Markdown files. Drag and Drop your files over there.",
         "lost": "Did you take a wrong turn? Please use navigation panel at your left."
     }
 };
