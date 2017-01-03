@@ -14,7 +14,7 @@ const HTML = `
     <a href="#md" class="{this.state.router.is_selected('md')}" >Markdown Parser</a>
 </div>
 
-<app></app>
+<app ref="child"></app>
 
 <div class="aru">
     <img src="{this.state.aru.img}"/>
@@ -76,22 +76,20 @@ function Index() {
                 this.speech = Aru.speech[speech];
                 if (expression) this.img = Aru.expression[expression];
             }
-        },
-        child: {
-            tag: undefined
         }
     };
 
     /**
      * Unmounts child element.
      *
-     * For now only unregister tag(unmount of child is triggered).
-     * @note: Unmount of child will break stuff.
-     *
+     * @note First time it does nothing as nothing is supposed to be mounted.
      * @return {void}
      */
     this.unmount_app = () => {
-        riot.unregister('app');
+        this.unmount_app = () => {
+            //First element points to DOM, the second points to acual tag.
+            this.refs.child[1].unmount('true');
+        };
     };
 
     /**
@@ -107,17 +105,19 @@ function Index() {
         const app_data = hash in Apps ? Apps[hash] : Apps.not_found;
         const {tag: tag_data, aru: aru_data} = app_data;
 
+        this.unmount_app();
+
         riot.tag('app', tag_data.html, tag_data.constructor);
-        this.state.child.tag = riot.mount('app', {
+        riot.mount('app', {
             parent: this //USE trigger() to update parent from child.
         });
+
         this.state.aru.change(aru_data.speech, aru_data.expression);
     };
 
     this.on('mount', () => {
         riot_route((hash) => {
             this.state.router.current = hash;
-            this.unmount_app();
             this.mount_app(hash);
             this.update();
         });
