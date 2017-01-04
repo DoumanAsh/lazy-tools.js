@@ -6,6 +6,53 @@ index
     right: 0
     bottom: 0
 
+@keyframes fly-in
+    0%
+        opacity: 0;
+        transform: translateY(-40px);
+
+    100%
+        opacity: 1;
+        transform: translateY(0);
+
+.app_settings
+    animation: fly-in 1s
+    position: absolute
+    left: 35%
+    top: 35%
+    width: 400px
+    background-color: #fff
+    padding: 0.5rem
+    border-radius: 0.2rem
+    box-shadow: 3px 3px 3px 4px rgba(0, 0, 0, 0.4)
+    z-index: 3
+    padding: 1rem
+
+    & > div
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        & > label
+            font-size: 1rem
+            margin: .5rem
+
+            & > input.single_num
+                width: 2rem
+
+    & > header
+        font-size: 1.5rem
+
+    & > button.close
+        cursor: pointer
+        position:absolute
+        top:0
+        right:0
+        background: #757575
+        color: white
+        font-size: .5rem
+        padding: .2rem
+        border: none
+
 app
     flex: 1 1 80%
     text-align: center
@@ -17,19 +64,30 @@ app
     & > header
         background: #333
         color: white
+        padding: .1rem
         & > h1
             display: inline-block
-            margin-bottom: .5rem
             font-weight: bold
+        & > .settings
+            font-size: 2.5rem
+            float: right
+            margin: .5rem
+            cursor: pointer
+            transition: all .2s ease-in-out
+
+            &:hover
+                transform: scale(1.2)
 
     & > main
         padding: .5rem
+        height: 100%
         & > section
-            display: inline-block
+            margin: .5rem
 
 
     & > main.flex_list
         display: flex
+        height: auto
         flex-wrap: wrap
         justify-content: space-around
         align-items: center
@@ -37,10 +95,8 @@ app
         & > a
             margin: .5rem
 
-
-a.button_link
+a.button_link, label.file_upload
     width: 200px
-    text-decoration: none
     word-wrap: break-word
     background: #333
     color: white
@@ -51,3 +107,10 @@ a.button_link
     &:hover
         transform: scale(1.1)
         box-shadow: 3px 3px 3px 4px rgba(0, 0, 0, 0.4)
+
+a.button_link
+    text-decoration: none
+
+label.file_upload
+    display: inline-block
+    cursor: pointer

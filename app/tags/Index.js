@@ -6,40 +6,28 @@ import Markdown from './Markdown.js';
 import Home from './Home.js';
 import NotFound from './404.js';
 
-const Aru = {
-    expression: {
-        "norm": "/img/aru-norm-1.png",
-        "sad": "/img/aru-sad-1.png",
-        "smile": "/img/aru-smile-1.png",
-        "smile_c": "/img/aru-smile_c-1.png"
-    },
-    speech: {
-        "welcome": "Welcome, Master. My name is Aru and I'll be your guide here.",
-        "welcome_md": "You can use this tool to generate HTML from Markdown files. Drag and Drop your files over there.",
-        "lost": "Did you take a wrong turn? Please use navigation panel at your left."
-    }
-};
+import Aru from './data/Aru.js';
 
 const Apps = {
     '': {
         tag: Home,
         aru: {
-            speech: "welcome",
-            expression: "norm"
+            speech: Aru.speech.welcome,
+            expression: Aru.expression.norm
         }
     },
     'md': {
         tag: Markdown,
         aru: {
-            speech: "welcome_md",
-            expression: "norm"
+            speech: Aru.speech.welcome_md,
+            expression: Aru.expression.norm
         }
     },
     'not_found': {
         tag: NotFound,
         aru: {
-            speech: "lost",
-            expression: "sad"
+            speech: Aru.speech.lost,
+            expression: Aru.expression.sad
         }
     }
 };
@@ -84,8 +72,8 @@ function Index() {
             img: Aru.expression.norm,
             speech: Aru.speech.welcome,
             change: function(speech, expression) {
-                this.speech = Aru.speech[speech];
-                if (expression) this.img = Aru.expression[expression];
+                this.speech = speech;
+                if (expression) this.img = expression;
             }
         }
     };
@@ -137,6 +125,11 @@ function Index() {
 
     this.on('unmount', () => {
         riot_route.stop();
+    });
+
+    this.on('aru_change', (speech, expression) => {
+        this.state.aru.change(speech, expression);
+        this.update();
     });
 }
 
