@@ -60,9 +60,9 @@ function Markdown() {
      * @return {void}
      */
     this.parser_set_settings = () => {
-        for (const setting of Object.keys(this.parser_settings_setters)) {
+        Object.keys(this.parser_settings_setters).forEach((setting) => {
             this.parser_settings_setters[setting]();
-        }
+        });
     };
 
     this.parser_settings_setters = {
@@ -191,8 +191,8 @@ function Markdown() {
             }
         };
 
-        for (const file of file_list) {
-            read_text_file(file, handle_read);
+        for (var idx = 0; idx < file_list_len; idx += 1) {
+            read_text_file(file_list[idx], handle_read);
         }
     };
 
