@@ -2,10 +2,10 @@
 
 export default {
     expression: {
-        "norm": "/img/aru-norm-1.png",
-        "sad": "/img/aru-sad-1.png",
-        "smile": "/img/aru-smile-1.png",
-        "smile_c": "/img/aru-smile_c-1.png"
+        "norm": "img/aru-norm-1.png",
+        "sad": "img/aru-sad-1.png",
+        "smile": "img/aru-smile-1.png",
+        "smile_c": "img/aru-smile_c-1.png"
     },
     speech: {
         "welcome": "Welcome, Master. My name is Aru and I'll be your guide here.",
