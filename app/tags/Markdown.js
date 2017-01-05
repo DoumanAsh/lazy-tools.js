@@ -1,6 +1,11 @@
 'use strict';
+import JSZip from 'jszip';
 
 import Aru from './data/Aru.js';
+import {GithubCode, GithubMarkdown} from './data/css.js';
+
+import {handle_read_error, read_text_file, save_text_file, save_blob} from './utils/file.js';
+import md_parser from './utils/md.js';
 
 const HTML = `
 <header>
@@ -44,35 +49,76 @@ function Markdown() {
             github_style: false,
             github_code_style: false,
             toc: 0
+        },
+    };
+
+    this.parser = new md_parser();
+
+    /**
+     * Sets all settings into parser.
+     *
+     * @return {void}
+     */
+    this.parser_set_settings = () => {
+        for (const setting of Object.keys(this.parser_settings_setters)) {
+            this.parser_settings_setters[setting]();
         }
     };
 
+    this.parser_settings_setters = {
+        toc: () => {
+            this.parser.toc(parseInt(this.state.settings.toc, 10));
+        },
+        github_style: () => {
+            this.parser.css(this.state.settings.github_style ? GithubMarkdown : '');
+        },
+        github_code_style: () => {
+            this.parser.css_code(this.state.settings.github_code_style ? GithubCode : '');
+        },
+    };
+
+    /**
+     * Loads MD parser settings from localStorage.
+     *
+     * @return {void}
+     */
     this.load_settings = () => {
         const load_settings = localStorage.getItem(this.state.settings.name);
         if (load_settings) this.state.settings = JSON.parse(load_settings);
     };
 
+    /**
+     * Saves MD parser settings to localStorage as JSON string.
+     *
+     * @return {void}
+     */
     this.save_settings = () => {
         localStorage.setItem(this.state.settings.name, JSON.stringify(this.state.settings));
     };
 
     this.on('mount', () => {
         this.load_settings();
+        this.parser_set_settings();
     });
 
     this.on('unmount', () => {
         this.save_settings();
     });
 
-    this.settings = (event) => {
-        if (event.target.type === 'checkbox') {
+    this.settings_setters = {
+        'checkbox': (event) => {
             this.state.settings[event.target.name] = event.target.checked;
-        }
-        else if (event.target.type === 'number') {
+        },
+        'number': (event) => {
             if (event.target.validity.valid) {
                 this.state.settings[event.target.name] = event.target.value;
             }
         }
+    };
+
+    this.settings = (event) => {
+        this.settings_setters[event.target.type](event);
+        this.parser_settings_setters[event.target.name]();
     };
 
     this.open_settings = () => {
@@ -92,11 +138,72 @@ function Markdown() {
         event.dataTransfer.dropEffect = 'copy';
     };
 
+
+    this.parse_files = (file_list) => {
+        const file_list_len = file_list.length;
+        var handle_result, parsed_num, zip;
+
+        function prepare_file_name(file_name) {
+            const title = file_name.replace(/\.[^\.]+$/, '');
+            const name = title + '.html';
+
+            return {title: title, name: name};
+        }
+
+        const handle_single_file = (result, file_name) => {
+            const {title, name} = prepare_file_name(file_name);
+
+            save_text_file(name, this.parser.render(result, title), "text/html;charset=utf-8");
+            this.opts.parent.trigger("aru_change", Aru.speech.md_parsing_done, Aru.expression.smile_c);
+        };
+
+        const handle_multiple_files = (result, file_name) => {
+            const {title, name} = prepare_file_name(file_name);
+
+            zip.file(name, this.parser.render(result, title));
+            parsed_num += 1;
+
+            if (parsed_num === file_list_len) {
+                zip.generateAsync({type:"blob", compression: "DEFLATE"})
+                   .then((content) => {
+                       save_blob("html.zip", content);
+                       this.opts.parent.trigger("aru_change", Aru.speech.md_parsing_done, Aru.expression.smile_c);
+                   });
+            }
+        };
+
+        if (file_list_len > 1) {
+            parsed_num = 0;
+            zip = JSZip();
+            handle_result = handle_multiple_files;
+        }
+        else {
+            handle_result = handle_single_file;
+        }
+
+        const handle_read = (error, result, file_name) => {
+            if (result) {
+                handle_result(result, file_name);
+
+            }
+            else {
+                handle_read_error(error);
+            }
+        };
+
+        for (const file of file_list) {
+            read_text_file(file, handle_read);
+        }
+    };
+
     this.on_drop = (event) => {
+        event.stopPropagation();
         event.preventDefault();
+        this.parse_files(event.dataTransfer.files);
     };
 
     this.on_md = (event) => {
+        this.parse_files(event.target.files);
     };
 }
 
