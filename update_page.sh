@@ -11,6 +11,7 @@ cd out/
 
 git checkout gh-pages || git checkout --orphan gh-pages
 rm -rf *
+rm -rf .eslintrc.js .travis.yml .gitignore
 
 cp -rf ../public/* .
 

@@ -11,7 +11,6 @@ module.exports = {
     conventions: {
         ignored: [
             '_*.*',
-            'app/templates/**',
             'test/**/*.js'
         ],
         assets: [
