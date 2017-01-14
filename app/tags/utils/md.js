@@ -12,11 +12,19 @@ class MD {
             css_code: ''
         };
 
-        this.inner = markdown_it({
+        this.inner = this.get_markdown_it();
+    }
+
+    /**
+     * @return {Object} New instance of markdown_it.
+     */
+    get_markdown_it() {
+        return markdown_it({
             highlight: (code, lang) => {
                 return !this.options.css_code || !lang || !hljs.getLanguage(lang) ? code : hljs.highlight(lang, code).value;
             }
         }).use(markdown_it_github_toc, this._get_toc_options());
+
     }
 
     /**
@@ -43,7 +51,7 @@ class MD {
      */
     toc(value) {
         this.options.toc = value;
-        this.inner.use(markdown_it_github_toc, this._get_toc_options());
+        this.inner = this.get_markdown_it();
     }
 
     /**
