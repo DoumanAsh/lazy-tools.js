@@ -87,7 +87,7 @@ function Index() {
     this.unmount_app = () => {
         this.unmount_app = () => {
             //First element points to DOM, the second points to acual tag.
-            this.refs.child[1].unmount('true');
+            this.refs.child[0].unmount(true);
         };
     };
 
