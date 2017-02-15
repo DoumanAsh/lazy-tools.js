@@ -30,7 +30,7 @@ const HTML = `
             </label>
             <label title="Inline Github CSS for code into result HTML">
                 <input type="checkbox" checked="{this.state.settings.github_code_style}" name="github_code_style" onchange="{this.settings}"/>
-                Github CSS Style
+                Code Github Gist CSS
             </label>
             <label title="Set nesting level for Table of Content">
                 <input class="single_num" type="number" value="{this.state.settings.toc}" name="toc" onchange="{this.settings}" maxLength="1" min="0" max="6"/>

@@ -5,5 +5,5 @@ node_js:
 script:
     - npm run build
 
-after_script:
+after_success:
     - npm run publish_gh_pages
