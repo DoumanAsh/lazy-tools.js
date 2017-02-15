@@ -21,7 +21,7 @@
     "highlight.js": "^9.9.0",
     "jszip": "^3.1.3",
     "markdown-it": "^8.2.2",
-    "markdown-it-github-toc": "^3.1.0",
+    "markdown-it-github-toc": "3.2.0",
     "riot": "^3.0.5",
     "riot-route": "^3.0.2"
   },
@@ -38,7 +38,6 @@
     "jade-brunch": "*",
     "javascript-brunch": "*",
     "rollup-brunch": "*",
-    "rollup-plugin-babel": "*",
     "rollup-plugin-riot": "*",
     "stylus-brunch": "*",
     "uglify-js-brunch": "*"
